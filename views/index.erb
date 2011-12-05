@@ -4,49 +4,54 @@
     <style type="text/css">
       body{background-color:#fff;color:#333;font-family:verdana, arial, helvetica, sans-serif;font-size:13px;line-height:18px}
       #wrapper{width:800px;margin:0 auto;background-color:#fff}
-      #header a{color:#607848;text-decoration:underline}
-      #header a:hover{color:#607848;text-decoration:none}
-      #footer{background-color:#607848;color:#fff;padding:3px 5px}
+      #header{padding:0; border-bottom: solid 5px #333;}
+      #header a{color:#333;text-decoration:none;}
+      #footer{background-color:#333;color:#fff;padding:3px 5px}
       #footer a{color:#fff;}
       #content{padding:20px 10px;min-height:400px}
       .hidden{display:none;}
+      input{font-size:1.4em;}
     </style>
   </head>
   <body>
     <div id="wrapper">
-      <h1 id='header'>Website to image converter!</h1>
+      <div id='header'>
+        <h1><a href='/'>Website to image converter!</a></h1>
+      </div>
       <div id="content">
         <form action="/convert" method="get">
-          Enter the url:<input type='text' name='site_url' /><input type='submit' value='Convert' />
+          Enter the url:<input type='text' name='site_url' style='width:500px;' /><input type='submit' value='Convert'/>
         </form>
         <p>
           You can just use the code below in your html to get a live screenshot of your webpage.
           <pre>
-            &img
+            &lt;img src='http://wti.heroku.com/convert?site_url=[your-site-url]' /&gt;
           </pre>
-        </p>
-        <h3>Result</h3>
-        <div id="output">
+          The code for this website is open source you can download it at <a href='http://github.com/minhajuddin/website_to_image/' title='Website to image converter'>http://github.com/minhajuddin/website_to_image/</a>
+          </p>
+          <h3>Screenshot</h3>
+          <div id="output">
+          </div>
+        </div>
+        <div id="footer">
+          &lt;3 <a href='http://cosmicvent.com'>http://cosmicvent.com</a>
         </div>
       </div>
-      <div id="footer">
-        &lt;3 <a href='http://cosmicvent.com'>http://cosmicvent.com</a>
-      </div>
-    </div>
-    <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
-    <script type="text/javascript">
-      $(function(){
-          $("form").submit(function(){
-            $("#output").html();
-            $("#output").html("<span>converting....</span><img class='hidden' width='780px;' src='"+window.location.href + "convert?" + $(this).serialize()+"' />");
-            $("#output img").load(function(){
-              console.log('loaded');
-              $("#output span").remove()
-              $("#output img").removeClass('hidden')
+      <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+      <script type="text/javascript">
+        $(function(){
+            $("form").submit(function(){
+              $("#output").html();
+              var img_url = window.location.href + "convert?" + $(this).serialize();
+              $("#output").html("<span>converting....</span><pre class='hidden'>url: "+img_url+"</pre><img class='hidden' width='780px;' src='"+ img_url +"' />");
+              $("#output img").load(function(){
+                console.log('loaded');
+                $("#output span").remove()
+                $("#output .hidden").removeClass('hidden')
+                })
+              return false;
+              });
             })
-            return false;
-            });
-          })
-</script>
-      </body>
-    </html>
+          </script>
+        </body>
+      </html>
