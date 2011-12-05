@@ -1,5 +1,7 @@
 require 'rubygems'
-require 'sinatra'
+require 'bundler'
+
+Bundler.require
 
 set :env,  :production
 disable :run

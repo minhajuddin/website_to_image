@@ -1,5 +1,3 @@
-require 'sinatra'
-
 module WebsiteToImage
   class App < Sinatra::Base
 
